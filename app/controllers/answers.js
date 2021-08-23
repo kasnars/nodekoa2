@@ -1,4 +1,5 @@
 const Answer = require('../model/answers')
+const User = require('../model/users')
 
 class AnswersCtl{
   async checkAnswerExist(ctx,next){
@@ -32,9 +33,12 @@ class AnswersCtl{
       content: {type:'string',required:true},
     })
     const answerer = ctx.state.user._id
+    const answererInfo = await User.findById(answerer)
+    // const answerername = await User.findById(answerer).select('name').name
     const { questionId } = ctx.params
-    const answer = await new Answer({...ctx.request.body,answerer,questionId}).save()
+    const answer = await new Answer({...ctx.request.body,answerer,questionId, answererInfo }).save()
     ctx.body = answer
+
   }
 
   async update(ctx){

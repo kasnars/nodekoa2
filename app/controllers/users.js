@@ -85,7 +85,7 @@ class Userctl{
       ctx.throw(401,'username is not be sgin or password is error')
     }
     const { _id,name } = user
-    const token = jsonwebtoken.sign({_id,name},secret,{expiresIn:'1d'})
+    const token = jsonwebtoken.sign({_id,name},secret,{expiresIn:'5d'})
     ctx.body = { token, _id, name }
   }
 
